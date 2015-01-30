@@ -19,13 +19,15 @@ var NavBar = React.createClass({
   render: function() {
     var _this = this;
 
-    navButtons = this.state.availableSubreddits.map(function(subname){
-      var activeClass = (_this.props.subreddit == subname) ? "pdt--active" : "";
+    console.log("NavRender", this.state.subreddit);
 
-      return (<li><a
+    navButtons = this.state.availableSubreddits.map(function(subname){
+      var activeClass = (_this.state.subreddit == subname) ? "active" : "";
+
+      return (<li className={activeClass}><a
         href={'#'+subname}
-        className={activeClass}
         data-subreddit={subname}
+        key={subname}
         onClick={_this.onNavClick}>
           {subname}
         </a></li>);
@@ -56,7 +58,6 @@ var NavBar = React.createClass({
   onNavClick: function(e) {
     Actions.RedditStore.pickSubreddit(e.target.dataset.subreddit);
     Actions.RedditStore.nextPicture();
-    e.preventDefault();
   }
 });
 
