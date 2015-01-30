@@ -17,6 +17,19 @@ var RedditStore = Reflux.createStore({
     return this.stuff;
   },
 
+  handleNextImage: function(nextImage) {
+    if (nextImage === undefined) {
+      console.error("RedditStore: something is wrong.")
+      return;
+    };
+
+    this.stuff.currentImageUrl = nextImage.url;
+    this.stuff.currentImageTitle = nextImage.title;
+    this.stuff.nextPictureLoading = false;
+    this.trigger(_this.stuff);
+    console.log("RedditStore: next picture set, store is triggering")
+  },
+
   onNextPicture: function() {
     _this = this;
 
@@ -25,17 +38,11 @@ var RedditStore = Reflux.createStore({
       this.trigger(this.stuff);
 
       this.stuff.redditData.getNextImage(
-        function(nextImage) {
-          _this.stuff.currentImageUrl = nextImage.url;
-          _this.stuff.currentImageTitle = nextImage.title;
-          _this.stuff.nextPictureLoading = false;
-          _this.trigger(_this.stuff);
-          console.log("RedditStore: next picture set, store is triggering")
-        },
+        this.handleNextImage.bind(this),
         function (err) {
           console.warn('getting next picture errbacked', err)
-          _this.stuff.nextPictureLoading = false;
-        });
+          this.stuff.nextPictureLoading = false;
+        }.bind(this));
     }
   },
 
