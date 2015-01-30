@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
-var PictureBrowser = require("./PictureBrowser.jsx");
+var NavBar = require("./NavBar");
+var PictureBrowser = require("./PictureBrowser");
 
 var App = React.createClass({
   getInitialState: function() {
@@ -10,6 +11,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div style={ { border: '1px solid cyan' } }>
+        <NavBar />
         <PictureBrowser />
       </div>
     );

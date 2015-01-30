@@ -7,6 +7,8 @@ window.fetch = require('whatwg-fetch');
 window.RedditData = require('./RedditData')
 window.rd = new RedditData()
 
+
+# Setup the app
 app = React.createFactory(require("./components/App"));
 
 React.render(

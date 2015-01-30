@@ -1,19 +1,37 @@
 # While the RedditStore handles Reflux Actions, this class handles
 # JSON-RPC to Reddit and JSON massaging.
+#
+# This is pretty far from all the Immutable goodness that's flying around.
+
 
 reqwest = require('reqwest')
 _ = require('lodash')
 
 class RedditData
   constructor: () ->
+    # current source of images
     @_subreddit = 'funny'
+
+    # hash to remember all the images we've encountered
     @_imageDictionary = {}
+
+    # image URLs we haven't seen yet. array is used as a queue / LIFO.
     @_unseenImageKeyList = []
+
+    # reddit key for pagination.
     @_nextPageLink = undefined
+
     @_pictureUrlMatcher = /\.(jpg|png|gif)$/
     # gifv/imgur HTML needs more massaging (usually galleries)
 
   setSubreddit: (subreddit) ->
+    # Images we haven't seen, we remove from the dictionary.
+    # (so that if we come back to the subreddit, they get a chance to be seen again)
+    _.forEach(@_unseenImageKeyList, (unseenKey) ->
+      delete @_imageDictionary[unseenKey];
+    , @)
+
+    # Trash the list and reset the subreddit
     @_unseenImageKeyList = []
     @_subreddit = subreddit
 
