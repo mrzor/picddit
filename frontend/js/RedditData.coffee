@@ -79,12 +79,18 @@ class RedditData
   _fetchImages: (callback, errback) ->
     # XXX handle @_nextPageLink
     reqUrl = 'https://www.reddit.com/r/' + @_subreddit + '.json'
-    reqwest({
+    reqwestParams = {
       url: reqUrl,
       crossOrigin: true,
       success: _.bind(@_onFetchSuccess, @, _, callback, errback),
       error: _.bind(@_onFetchFailure, @, _, errback)
-    })
+    }
+
+    if (@_nextPageLink)
+      console.log("Going after #{@_nextPageLink}")
+      reqwestParams.data = { after: @_nextPageLink }
+
+    reqwest(reqwestParams)
 
 
 module.exports = RedditData
