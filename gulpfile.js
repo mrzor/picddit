@@ -14,7 +14,6 @@ var coffeeify = require('coffeeify');
 
 var PATHS = {
   dist: 'dist',
-  fatlibsjs: './frontend/js/fatlibs.js',
   frontendjs: './frontend/js/main.coffee',
   frontendjsglob: 'frontend/js/**/*.js',
   frontendstatic: 'frontend/static/**/*'
