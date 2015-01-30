@@ -10,7 +10,7 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div style={ { border: '1px solid cyan' } }>
+      <div>
         <NavBar />
         <PictureBrowser />
       </div>

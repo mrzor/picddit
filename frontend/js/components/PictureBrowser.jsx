@@ -19,27 +19,27 @@ var PictureBrowser = React.createClass({
 
   componentDidMount: function() {
     // Start with a picture
-    console.log("componentDidMount")
     Actions.RedditStore.nextPicture()
   },
 
   render: function() {
     return (
       <div className='row pdt-picture-browser'>
-        <h2>Pictures for {'r/' + this.state.subreddit}</h2>
-        <div className='panel panel-default'>
-          <h3>{this.state.imageTitle}</h3>
-          <img src={this.state.imageUrl} style={{width: '100%', height: innerHeight * 0.7}}></img>
-          <input ref="next-image" value="Next" type="button" className='btn btn-default btn-small' onClick={this.showNext} />
-        </div>
+        <h2>{this.state.imageTitle}</h2>
+
+        <img
+          className='pdt-main-image'
+          src={this.state.imageUrl}
+          style={{maxWidth: '100%', display: 'none' }}
+          onLoad={this.showImage}
+        ></img>
       </div>
     );
   },
 
-  showNext: function(e) {
-    Actions.RedditStore.nextPicture()
-    e.preventDefault();
-  }
+  showImage: function(e) {
+    e.target.style.display = "";
+  },
 });
 
 module.exports = PictureBrowser;

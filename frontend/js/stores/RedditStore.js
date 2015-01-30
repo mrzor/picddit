@@ -27,7 +27,6 @@ var RedditStore = Reflux.createStore({
     this.stuff.currentImageTitle = nextImage.title;
     this.stuff.nextPictureLoading = false;
     this.trigger(_this.stuff);
-    console.log("RedditStore: next picture set, store is triggering")
   },
 
   onNextPicture: function() {

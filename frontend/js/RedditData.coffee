@@ -32,6 +32,7 @@ class RedditData
     , @)
 
     # Trash the list and reset the subreddit
+    @_nextPageLink = undefined
     @_unseenImageKeyList = []
     @_subreddit = subreddit
 
@@ -60,6 +61,8 @@ class RedditData
 
     @_nextPageLink = response.data.after
 
+    newImageCount = 0
+
     imageObjects = _.filter(response.data.children, (obj) ->
       @_pictureUrlMatcher.test(obj.data.url)
     , @)
@@ -68,16 +71,21 @@ class RedditData
       if !_.has(@_imageDictionary, obj.data.url)
         @_imageDictionary[obj.data.url] = obj.data
         @_unseenImageKeyList.push(obj.data)
+        newImageCount += 1
     , @)
 
-    callback.bind(@)()
+    if newImageCount > 0
+      callback.bind(@)()
+    else
+      # XXX this could recurse ourselves into oblivion
+      console.log("Found no image this time, trying next page")
+      @_fetchImages(callback, errback)
 
   _onFetchFailure: (err, errback) ->
     console.log("fetch failed")
     errback(err)
 
   _fetchImages: (callback, errback) ->
-    # XXX handle @_nextPageLink
     reqUrl = 'https://www.reddit.com/r/' + @_subreddit + '.json'
     reqwestParams = {
       url: reqUrl,
