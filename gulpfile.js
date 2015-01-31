@@ -35,8 +35,8 @@ gulp.task('frontend-js', function () {
   var bundler = watchify(b);
 
   bundler.on('update', function() {
-    rebundle();
-    livereload.changed();
+    gutil.log(gutil.colors.cyan("watchify rebundling JS"));
+    rebundle().pipe(livereload());
   });
 
   function rebundle() {
