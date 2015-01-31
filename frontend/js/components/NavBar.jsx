@@ -22,10 +22,9 @@ var NavBar = React.createClass({
     navButtons = this.state.availableSubreddits.map(function(subname){
       var activeClass = (_this.state.subreddit == subname) ? "active" : "";
 
-      return (<li className={activeClass}><a
+      return (<li className={activeClass} key={subname}><a
         href={'#'+subname}
         data-subreddit={subname}
-        key={subname}
         onClick={_this.onNavClick}>
           r/{subname}
         </a></li>);
