@@ -13,6 +13,12 @@ var App = React.createClass({
       <div>
         <NavBar />
         <PictureBrowser />
+
+        <footer className="footer">
+          <a target="_blank" href="https://github.com/mrzor/picddit">
+            <i className="fa fa-github-alt"></i> Picddit sourcecode is available in octocat-land.
+          </a>
+        </footer>
       </div>
     );
   },

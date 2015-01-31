@@ -1,6 +1,7 @@
 body {
   /*background-color: #566D7E;*/
   background-color: #000;
+  margin-bottom: 60px;
 }
 
 #pdt-app-container {
@@ -20,4 +21,19 @@ body {
   /*box-shadow: 3px 3px 5px 6px #bebebe;*/
   margin: 0 auto;
   display: block;
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2000;
+  padding: 0 15px;
+  height: 20px;
+  background-color: #3A3F44;
+}
+
+.container .text-muted {
+  margin: 20px 0;
 }
